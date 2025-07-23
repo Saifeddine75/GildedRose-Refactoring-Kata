@@ -32,6 +32,8 @@ class ItemFactory:
             return BackstagePass(item.sell_in, item.quality)
         elif item.name == "Sulfuras, Hand of Ragnaros":
             return Sulfuras(item.sell_in, item.quality)
+        elif "Conjured" in item.name:
+            return ConjuredItem(item.name, item.sell_in, item.quality)
         else:
             return NormalItem(item.name, item.sell_in, item.quality)
 
@@ -83,3 +85,11 @@ class BackstagePass(Item):
             GildedRose.increase_quality(self, 2)
         else:
             GildedRose.increase_quality(self)
+
+
+class ConjuredItem(Item):
+    def __init__(self, name, sell_in, quality):
+        super().__init__(name, sell_in, quality)
+
+    def update_quality(self):
+        GildedRose.decrease_quality(self, 2)

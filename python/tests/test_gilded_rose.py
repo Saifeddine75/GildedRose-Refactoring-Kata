@@ -36,5 +36,14 @@ class GildedRoseTest(unittest.TestCase):
         update_item = gilded_rose.items[0]
         self.assertEqual(80, update_item.quality)
 
+    def test_conjured_item_degrades_twice_as_fast(self):
+        items = [Item("Conjured Item", 5, 10)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        update_item = gilded_rose.items[0]
+        self.assertEqual(4, update_item.sell_in)
+        self.assertEqual(8, update_item.quality)
+
+
 if __name__ == '__main__':
     unittest.main()
